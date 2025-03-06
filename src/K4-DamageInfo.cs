@@ -300,7 +300,9 @@ namespace K4ryuuDamageInfo
 			if (!PlayerHasVipAccess(player))
 			{
 				data.IsDataShown = true;
+				player.PrintToChat("");
 				player.PrintToChat($" {Localizer.ForPlayer(player, "phrases.vip.advertisement")}");
+				player.PrintToChat("");
 				return;
 			}
 
