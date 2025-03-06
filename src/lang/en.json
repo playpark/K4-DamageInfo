@@ -16,5 +16,5 @@
   "phrases.hitgroup.10": "Gear",
   "phrases.hitgroup._": "Unknown",
   "phrases.center.html": "<font color=\"#FFA500\">Given Damage</font><br><font color=\"#00BFFF\">{1:D3}</font><font color=\"#FFFFFF\"> | </font><font color=\"#FF0000\">{2:D3}</font><br><font color=\"#FFA500\">{0}</font>",
-  "phrases.vip.advertisement": "{gold}⭐ Get VIP to see your damage statistics! ⭐"
+  "phrases.vip.advertisement": "  {gold}[VIP] {white} Get VIP to see damage statistics! "
 }

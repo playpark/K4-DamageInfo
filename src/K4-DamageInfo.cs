@@ -296,6 +296,25 @@ namespace K4ryuuDamageInfo
 			if (data.IsDataShown)
 				return;
 
+			// Check if there's any damage data to display
+			bool hasDamageData = false;
+
+			if (Config.ShowAllDamages)
+			{
+				var allSummaries = _playerData.Values.Select(pd => SummarizePlayerDamage(pd.DamageInfo)).ToList();
+				hasDamageData = allSummaries.Count > 0;
+			}
+			else
+			{
+				var DamageInfo = GetPlayerData(player.Slot).DamageInfo;
+				hasDamageData = DamageInfo.GivenDamage.Count > 0 || DamageInfo.TakenDamage.Count > 0;
+			}
+
+			// If there's no damage data, don't show anything
+			if (!hasDamageData)
+				return;
+
+			// If player doesn't have VIP access, show advertisement
 			if (!PlayerHasVipAccess(player))
 			{
 				data.IsDataShown = true;
@@ -308,8 +327,6 @@ namespace K4ryuuDamageInfo
 			if (Config.ShowAllDamages)
 			{
 				var allSummaries = _playerData.Values.Select(pd => SummarizePlayerDamage(pd.DamageInfo)).ToList();
-				if (allSummaries.Count == 0)
-					return;
 
 				data.IsDataShown = true;
 				player.PrintToChat($" {Localizer.ForPlayer(player, "phrases.summary.startline")}");
@@ -324,9 +341,6 @@ namespace K4ryuuDamageInfo
 			}
 			else
 			{
-				if (GetPlayerData(player.Slot).DamageInfo.GivenDamage.Count == 0)
-					return;
-
 				data.IsDataShown = true;
 				DisplayPlayerDamageInfo(player, data.DamageInfo);
 			}
