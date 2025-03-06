@@ -51,15 +51,21 @@ namespace K4ryuuDamageInfo
 			"leave-empty-so-everyone-see-it"
 		];
 
+		[JsonPropertyName("vip-only-statistics")]
+		public bool VipOnlyStatistics { get; set; } = false;
+
+		[JsonPropertyName("vip-flag")]
+		public string VipFlag { get; set; } = "@css/vip";
+
 		[JsonPropertyName("ConfigVersion")]
-		public override int Version { get; set; } = 5;
+		public override int Version { get; set; } = 6;
 	}
 
 	[MinimumApiVersion(300)]
 	public class DamageInfoPlugin : BasePlugin, IPluginConfig<PluginConfig>
 	{
 		public override string ModuleName => "Damage Informations";
-		public override string ModuleVersion => "2.4.0";
+		public override string ModuleVersion => "2.5.0";
 		public override string ModuleAuthor => "K4ryuu @ KitsuneLab";
 		public required PluginConfig Config { get; set; } = new PluginConfig();
 		public CCSGameRules? GameRules;
@@ -291,6 +297,13 @@ namespace K4ryuuDamageInfo
 			if (data.IsDataShown)
 				return;
 
+			if (!PlayerHasVipAccess(player))
+			{
+				data.IsDataShown = true;
+				player.PrintToChat($" {Localizer.ForPlayer(player, "phrases.vip.advertisement")}");
+				return;
+			}
+
 			if (Config.ShowAllDamages)
 			{
 				var allSummaries = _playerData.Values.Select(pd => SummarizePlayerDamage(pd.DamageInfo)).ToList();
@@ -425,6 +438,26 @@ namespace K4ryuuDamageInfo
 				if (AdminManager.PlayerHasCommandOverride(player, flag))
 					return true;
 			}
+
+			return false;
+		}
+
+		public bool PlayerHasVipAccess(CCSPlayerController player)
+		{
+			if (!Config.VipOnlyStatistics)
+				return true;
+
+			if (string.IsNullOrEmpty(Config.VipFlag))
+				return true;
+
+			if (Config.VipFlag[0] == '@' && AdminManager.PlayerHasPermissions(player, Config.VipFlag))
+				return true;
+
+			if (Config.VipFlag[0] == '#' && AdminManager.PlayerInGroup(player, Config.VipFlag))
+				return true;
+
+			if (AdminManager.PlayerHasCommandOverride(player, Config.VipFlag))
+				return true;
 
 			return false;
 		}

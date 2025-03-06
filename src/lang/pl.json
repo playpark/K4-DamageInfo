@@ -15,5 +15,6 @@
   "phrases.hitgroup.7": "Prawa noga",
   "phrases.hitgroup.10": "W biegu",
   "phrases.hitgroup._": "Nieznane",
-  "phrases.center.html": "<font color=\"#FFA500\">Zadane obrażenia</font><br><font color=\"#00BFFF\">{1:D3}</font><font color=\"#FFFFFF\"> | </font><font color=\"#FF0000\">{2:D3}</font><br><font color=\"#FFA500\">{0}</font>"
+  "phrases.center.html": "<font color=\"#FFA500\">Zadane obrażenia</font><br><font color=\"#00BFFF\">{1:D3}</font><font color=\"#FFFFFF\"> | </font><font color=\"#FF0000\">{2:D3}</font><br><font color=\"#FFA500\">{0}</font>",
+  "phrases.vip.advertisement": "{gold}⭐ Uzyskaj VIP, aby zobaczyć statystyki obrażeń! ⭐"
 }
