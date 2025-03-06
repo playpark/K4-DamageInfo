@@ -284,7 +284,6 @@ namespace K4ryuuDamageInfo
 			foreach (var player in players)
 				DisplayDamageInfo(player);
 
-			_playerData.Clear();
 			return HookResult.Continue;
 		}
 
@@ -300,9 +299,9 @@ namespace K4ryuuDamageInfo
 			if (!PlayerHasVipAccess(player))
 			{
 				data.IsDataShown = true;
-				player.PrintToChat("");
+				player.PrintToChat(" ");
 				player.PrintToChat($" {Localizer.ForPlayer(player, "phrases.vip.advertisement")}");
-				player.PrintToChat("");
+				player.PrintToChat(" ");
 				return;
 			}
 
